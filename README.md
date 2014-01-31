@@ -98,12 +98,12 @@ Change it here like so:
 
 ## Contributing
 
-See the [CONTRIBUTING.md] file for more information.
+See the [CONTRIBUTING.md](CONTRIBUTING.md) file for more information.
 
 ## Changelog
 
-See the [CHANGELOG.md] file for more information.
+See the [CHANGELOG.md](CHANGELOG.md) file for more information.
 
 ## License
 
-See the [LICENSE.md] file for more information.
+See the [LICENSE.md](LICENSE.md) file for more information.
