@@ -24,6 +24,7 @@ For example, to make four 1/4 width columns:
     <div class="col-md-1-4">.col-md-1-4</div>
     <div class="col-md-1-4">.col-md-1-4</div>
 </div>
+```
 
 That's it! You can even go wild with offsets, media queries, and column ordering:
 
@@ -45,6 +46,7 @@ That's it! You can even go wild with offsets, media queries, and column ordering
         </div>
     </div>
 </div>
+```
 
 ## Installation
 
@@ -58,6 +60,7 @@ to your web css directory and reference it in your header:
 ```html
 <link type="text/css" rel="stylesheet" media="all" href="../bootstrap/dist/css/bootstrap.min.css">
 <link type="text/css" rel="stylesheet" media="all" href="../fractionalgrids-css/dist/fractionalgrids-12col.min.css">
+```
 
 ### 2. Cut and Paste (NOT RECOMMENDED)
 
@@ -71,8 +74,10 @@ In your `theme.less` file, add a new directory and override the grid reference, 
 ```javascript
 @bootstrap-dir:  "../bower_components/bootstrap/less";
 @fractionalgrid-dir: "../path/to/your/less";
+
 // Core CSS
 @import '@{fractionalgrid-dir}/grid.less';
+```
 
 And since **fractionalgrids-css** is a replacement library for Bootstrap's grids, it can take any number of columns defined in the `variables.less` file.
 Change it here like so:
@@ -82,12 +87,14 @@ Change it here like so:
 ```javascript
 // Grid system
 // --------------------------------------------------
+
 // Number of columns in the grid system
 @grid-columns:                      12;
 // Padding, to be divided by two and applied to the left and right of all columns
 @grid-gutter-width:               30px;
 // Point at which the navbar stops collapsing
 @grid-float-breakpoint: @screen-sm-min;
+```
 
 ## Contributing
 
