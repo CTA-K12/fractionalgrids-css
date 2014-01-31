@@ -67,7 +67,7 @@ to your web css directory and reference it in your header:
 Cut and Paste all of the `.col-` css classes over the ones found in your `bootstrap.css` file.
 This is not recommended.
 
-### 3. Edit Your `theme.less` File
+### 3. Edit Your `theme.less` File (PREFERRED)
 
 In your `theme.less` file, add a new directory and override the grid reference, like so:
 
@@ -81,8 +81,6 @@ In your `theme.less` file, add a new directory and override the grid reference, 
 
 And since **fractionalgrids-css** is a replacement library for Bootstrap's grids, it can take any number of columns defined in the `variables.less` file.
 Change it here like so:
-
-`../variables.less`
 
 ```javascript
 // Grid system
