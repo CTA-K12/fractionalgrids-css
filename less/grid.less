@@ -39,9 +39,6 @@ div[class*=' col-'] {
 .get-gcds (@grid-columns);
 
 .column-maker (@gcd-len, @grid-columns, @gcd-arr, xs);
-.column-maker (@gcd-len, @grid-columns, @gcd-arr, xs, offset);
-.column-maker (@gcd-len, @grid-columns, @gcd-arr, xs, push);
-.column-maker (@gcd-len, @grid-columns, @gcd-arr, xs, pull);
 
 
 @media (min-width: @screen-sm-min) {
@@ -49,9 +46,6 @@ div[class*=' col-'] {
         width: @container-sm;
     }
     .column-maker (@gcd-len, @grid-columns, @gcd-arr, sm);
-    .column-maker (@gcd-len, @grid-columns, @gcd-arr, sm, offset);
-    .column-maker (@gcd-len, @grid-columns, @gcd-arr, sm, push);
-    .column-maker (@gcd-len, @grid-columns, @gcd-arr, sm, pull);
 }
 
 @media (min-width: @screen-md-min) {
@@ -59,9 +53,6 @@ div[class*=' col-'] {
         width: @container-md;
     }
     .column-maker (@gcd-len, @grid-columns, @gcd-arr, md);
-    .column-maker (@gcd-len, @grid-columns, @gcd-arr, md, offset);
-    .column-maker (@gcd-len, @grid-columns, @gcd-arr, md, push);
-    .column-maker (@gcd-len, @grid-columns, @gcd-arr, md, pull);
 }
 
 @media (min-width: @screen-lg-min) {
@@ -69,9 +60,6 @@ div[class*=' col-'] {
         width: @container-lg;
     }
     .column-maker (@gcd-len, @grid-columns, @gcd-arr, lg);
-    .column-maker (@gcd-len, @grid-columns, @gcd-arr, lg, offset);
-    .column-maker (@gcd-len, @grid-columns, @gcd-arr, lg, push);
-    .column-maker (@gcd-len, @grid-columns, @gcd-arr, lg, pull);
 }
 
 .get-gcds (@cols) {
@@ -79,20 +67,23 @@ div[class*=' col-'] {
     @gcd-len: ~`(function(c){ return c.split(",").length})("@{gcd-arr}")`;
 }
 
-.column-maker (@totalgcds, @totalcols, @gcdsarray, @size, @type: ~'') {
+.column-maker (@totalgcds, @totalcols, @gcdsarray, @size) {
 
     // looper function
     .gcd-loop (@k) when (@k > 0) {
 
         // get current gcd
         @currgcd: ~`(function(g,i){return g.split(",")[i-1]})("@{gcdsarray}","@{k}")`;
-        @temp2:   ~'';
+        @temp-span-2: ~'';
+        @temp-push-2: ~'';
+        @temp-pull-2: ~'';
+        @temp-offset-2: ~'';
 
         // looper function
-        .denomenator-loop (@j, @temp2) when (@j > 0) {
+        .denomenator-loop (@j, @temp-span-2, @temp-push-2, @temp-pull-2, @temp-offset-2) when (@j > 0) {
 
             // looper function
-            .numerator-loop (@i, @temp2) when (@i > 0) {
+            .numerator-loop (@i, @temp-span-2, @temp-push-2, @temp-pull-2, @temp-offset-2) when (@i > 0) {
 
                 // get testing gcd
                 @testgcd: ~`(function(n,d){var g=function g(a,b){return b?g(b,a%b):a;};g=g(n,d);return (n/g)+"-"+(d/g);})("@{i}","@{j}")`;
@@ -100,77 +91,61 @@ div[class*=' col-'] {
                 // if @gcd === gcd(numerator/denominator)
                 // add it to the selectors
 
-                // when it's the first find and type is empty
-                .compare(@curr, @test, @temp1, @size, @type) when (@test = @curr) and (@temp1 = ~'') and (@type = ~'') {
-                    @temp2: ".col-@{size}-@{i}-@{j}";
-                }
-
-                // when it's the first find and type is not empty
-                .compare(@curr, @test, @temp1, @size, @type) when (@test = @curr) and (@temp1 = ~'') and not (@type = ~'') {
-                    @temp2: ".col-@{size}-@{type}-@{i}-@{j}";
-                }
-
-                // when it's not the first find and type is empty
-                .compare(@curr, @test, @temp1, @size, @type) when (@test = @curr) and not (@temp1 = ~'') and (@type = ~'') {
-                    @temp2: "@{temp1}, .col-@{size}-@{i}-@{j}";
+                // when it's the first find
+                .compare(@curr, @test, @temp-span-1, @temp-push-1, @temp-pull-1, @temp-offset-1, @size) when (@test = @curr) and (@temp-span-1 = ~'') {
+                    @temp-span-2:   ".col-@{size}-@{i}-@{j}";
+                    @temp-push-2:   ".col-@{size}-push-@{i}-@{j}";
+                    @temp-pull-2:   ".col-@{size}-pull-@{i}-@{j}";
+                    @temp-offset-2: ".col-@{size}-offset-@{i}-@{j}";
                 }
 
                 // when it's not the first find and type is empty
-                .compare(@curr, @test, @temp1, @size, @type) when (@test = @curr) and not (@temp1 = ~'') and not (@type = ~'') {
-                    @temp2: "@{temp1}, .col-@{size}-@{type}-@{i}-@{j}";
+                .compare(@curr, @test, @temp-span-1, @temp-push-1, @temp-pull-1, @temp-offset-1, @size) when (@test = @curr) and not (@temp-span-1 = ~'') {
+                    @temp-span-2:   "@{temp-span-1}, .col-@{size}-@{i}-@{j}";
+                    @temp-push-2:   "@{temp-push-1}, .col-@{size}-push-@{i}-@{j}";
+                    @temp-pull-2:   "@{temp-pull-1}, .col-@{size}-pull-@{i}-@{j}";
+                    @temp-offset-2: "@{temp-offset-1}, .col-@{size}-offset-@{i}-@{j}";
                 }
 
-                .compare(@currgcd, @testgcd, @temp2, @size, @type);
+                .compare(@currgcd, @testgcd, @temp-span-2, @temp-push-2, @temp-pull-2, @temp-offset-2, @size);
 
                 // print when i and j are 1
-                .printitout (@t, @y, @a, @b) when (@a = 1) and (@b = 1) and (@y = ~'') {
-                    @selectors: ~"@{t}";
-                    @width: `(function(x){var y=x.split("-");return y[0]/y[1];})("@{currgcd}")`;
-                    @{selectors} {
-                        width: percentage(@width);
+                .printitout (@t-span, @t-push, @t-pull, @t-offset, @a, @b) when (@a = 1) and (@b = 1) {
+                    @s-span:   ~"@{t-span}";
+                    @s-push:   ~"@{t-push}";
+                    @s-pull:   ~"@{t-pull}";
+                    @s-offset: ~"@{t-offset}";
+                    @percent:  `(function(x){var y=x.split("-");return y[0]/y[1];})("@{currgcd}")`;
+                    @{s-span} {
+                        width: percentage(@percent);
+                    }
+                    @{s-push} {
+                        left: percentage(@percent);
+                    }
+                    @{s-pull} {
+                        right: percentage(@percent);
+                    }
+                    @{s-offset} {
+                        left-margin: percentage(@percent);
                     }
                 }
 
-                .printitout (@t, @y, @a, @b) when (@a = 1) and (@b = 1) and (@y = offset) {
-                    @selectors: ~"@{t}";
-                    @margin: `(function(x){var y=x.split("-");return y[0]/y[1];})("@{currgcd}")`;
-                    @{selectors} {
-                        left-margin: percentage(@margin);
-                    }
-                }
-
-                .printitout (@t, @y, @a, @b) when (@a = 1) and (@b = 1) and (@y = push) {
-                    @selectors: ~"@{t}";
-                    @left: `(function(x){var y=x.split("-");return y[0]/y[1];})("@{currgcd}")`;
-                    @{selectors} {
-                        left: percentage(@left);
-                    }
-                }
-
-                .printitout (@t, @y, @a, @b) when (@a = 1) and (@b = 1) and (@y = pull) {
-                    @selectors: ~"@{t}";
-                    @right: `(function(x){var y=x.split("-");return y[0]/y[1];})("@{currgcd}")`;
-                    @{selectors} {
-                        right: percentage(@right);
-                    }
-                }
-
-                .printitout (@temp2, @type, @i, @j);
+                .printitout (@temp-span-2, @temp-push-2, @temp-pull-2, @temp-offset-2, @i, @j);
 
                 // next iteration
-                .numerator-loop (@i - 1, @temp2);
+                .numerator-loop (@i - 1, @temp-span-2, @temp-push-2, @temp-pull-2, @temp-offset-2);
             }
 
             // start the numerator loop
-            .numerator-loop (@j, @temp2);
+            .numerator-loop (@j, @temp-span-2, @temp-push-2, @temp-pull-2, @temp-offset-2);
 
             // next iteration
-            .denomenator-loop (@j - 1, @temp2);
+            .denomenator-loop (@j - 1, @temp-span-2, @temp-push-2, @temp-pull-2, @temp-offset-2);
 
         }
 
         // start the denomenator loop with highest column count
-        .denomenator-loop (@totalcols, @temp2);
+        .denomenator-loop (@totalcols, @temp-span-2, @temp-push-2, @temp-pull-2, @temp-offset-2);
 
         // next iteration
         .gcd-loop (@k - 1);
