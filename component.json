@@ -1,8 +1,0 @@
-{
-    "name": "fractionalgrids-css",
-    "repo": "mesd/fractionalgrids-css",
-    "version": "0.0.1",
-    "styles": ["fractionalgrids-css"],
-    "author": "Curtis G Hanson",
-    "license": "MIT"
-}

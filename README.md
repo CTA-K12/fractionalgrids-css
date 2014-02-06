@@ -1,12 +1,12 @@
 # fractionalgrids-css
 
-Current Version `v0.0.1`
+Current Version `v0.0.3`
 
 *A Yahoo Pure CSS implementation of grids in Twitter's Bootstrap 3.*
 
 ## Demo
 
-Check out an example over at our [blog](http://appdev-confluence.mesd.k12.or.us:8090/display/APPDEV/Yahoo+Pure+Grids+with+Twitter+Bootstrap).
+Check out an example over at our [blog](http://appdev-confluence.mesd.k12.or.us:8090/display/APPDEV/CSS+Fractional+Grid+Framework).
 
 ## Usage
 
@@ -79,7 +79,8 @@ In your `theme.less` file, add a new directory and override the grid reference, 
 @import '@{fractionalgrid-dir}/grid.less';
 ```
 
-And since **fractionalgrids-css** is a replacement library for Bootstrap's grids, it can take any number of columns defined in the `variables.less` file.
+And since **fractionalgrids-css** is a replacement library for Bootstrap's grids,
+it can take any number of columns defined in the `variables.less` file.
 Change it here like so:
 
 ```javascript
@@ -93,6 +94,20 @@ Change it here like so:
 // Point at which the navbar stops collapsing
 @grid-float-breakpoint: @screen-sm-min;
 ```
+
+## Known Bugs & Caveats
+
+Bootstrap 3's grid system offers a plethora of flexibility: responsive widths, offsets, pushes & pulls, and nesting.
+Because of these features, implementing relational and fractional grid systems uses considerably larger file sizes.
+The 24-column css file is a whopping 150kB minified! Luckily, the 12-column file is only 37kB.
+If you plan to use the distribution file, stick with the 12-column format unless you are absolutely sure
+you will need the 24-column version. If worse comes to worse, you could alyways nest columns to produce a 24-column layout.
+
+In order to make this less file compile into the smallest stylesheet possible, we had to use inline javascript anonymous functions.
+This stylesheet is supported using only javascript less compilers.
+It is **ABSOLUTELY NOT** supported using alternative less compilers, such as leafo's PHP Less script.
+We encourage anyone who has any ideas on how to make this script work without anonymous functions,
+feel free to drop a suggestion by or make a pull request. Thanks!
 
 ## Contributing
 

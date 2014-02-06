@@ -5,3 +5,13 @@
 *Chinese New Year*
 
 * Initial commit, no changes
+
+## 0.0.2 (February 3, 2014)
+
+* code rewrite to make file smaller
+
+## 0.0.3 (February 5, 2014)
+
+* code rewrite to improve compiling times
+* updated distribution files with smaller file size
+* updated documentation

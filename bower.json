@@ -1,11 +1,11 @@
 {
   "name": "fractionalgrids-css",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "main": "fractionalgrids-css",
   "author": "Curtis G Hanson",
-    "ignore": [
-        "CHANGELOG.md",
-        "CONTRIBUTING.md",
-        "component.json"
-    ]
+  "dependencies": {
+    "jquery": ">= 1.9.0",
+    "bootstrap": ">= 3.0.0",
+    "less": ">=1.5.0"
+  }
 }
