@@ -22,19 +22,13 @@ div[class*=' col-'] {
     min-height:                         1px;
     padding-left:  (@grid-gutter-width / 2);
     padding-right: (@grid-gutter-width / 2);
+}
+
+div[class^='col-xs-'],
+div[class*=' col-xs-'] {
     float:                             left;
 }
 
-// demo styles
-div[class^='col-'],
-div[class*=' col-'] {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background-color: #eee;
-    background-color: rgba(86,61,124,.15);
-    border: 1px solid #ddd;
-    border: 1px solid rgba(86,61,124,.2);
-}
 // get the fractions stuff
 .get-smallest-fractions (@grid-columns);
 
@@ -122,7 +116,7 @@ div[class*=' col-'] {
             right: percentage(@percent);
         }
         @{s-offset} {
-            left-margin: percentage(@percent);
+            margin-left: percentage(@percent);
         }    
     }
 
@@ -132,4 +126,15 @@ div[class*=' col-'] {
     // iterate the main loop
     .the-loop (@size, @fraction-array, @total-columns, @k - 1);
 
+}
+
+// demo styles
+div[class^='col-'].demo,
+div[class*=' col-'].demo {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #eee;
+    background-color: rgba(86,61,124,.15);
+    border: 1px solid #ddd;
+    border: 1px solid rgba(86,61,124,.2);
 }

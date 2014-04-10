@@ -1,6 +1,6 @@
 # fractionalgrids-css
 
-Current Version `v0.0.3`
+Current Version `v0.0.4`
 
 *A Yahoo Pure CSS implementation of grids in Twitter's Bootstrap 3.*
 
